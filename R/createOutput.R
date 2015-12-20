@@ -7,17 +7,13 @@ createOutput <- function(data, name){
       id <- .globals$outputId
       .globals$outputId <- .globals$outputId+1
 
-      if(SI(data)$type == 'channels')
-      {
-        addToQueue(
-          "createOutputStream",
-          id = id,
-          name = name,
-          typeName = 'double',
-          samplingRate = SI(data)$samplingRate,
-          channels = SI(data)$channels
-        )
-      }
+      args <- SI(data)
+      args$id <- id
+
+      addToQueue(
+        "createOutputStream",
+        args
+      )
 
       env$id <- id
     },
