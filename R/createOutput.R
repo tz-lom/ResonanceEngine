@@ -9,24 +9,46 @@ createOutput <- function(data, name){
 
       args <- SI(data)
       args$id <- id
+      args$name <- name
 
-      addToQueue(
-        "createOutputStream",
-        args
-      )
+      do.call(addToQueue, c(list("createOutputStream"), args))
 
       env$id <- id
-    },
-    online = function(data){
-      if(length(data)>0){
-        addToQueue(
-          "sendBlockToStream",
-          id = id,
-          data= data
-        )
+
+      if(SI.is.channels(data))
+      {
+        env$cb <- function(data){
+          if(length(data)>0){
+            addToQueue(
+              "sendBlockToStream",
+              id = id,
+              data= data
+            )
+          }
+
+          list()
+        }
+      }
+      if(SI.is.event(data))
+      {
+        env$cb <- function(data){
+          for(d in data){
+            addToQueue(
+              "sendBlockToStream",
+              id = id,
+              data= d
+            )
+          }
+
+          list()
+        }
       }
 
-      list()
+      id
+
+    },
+    online = function(data){
+      cb(data)
     }
   )
 

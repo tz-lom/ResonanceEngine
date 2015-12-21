@@ -2,9 +2,10 @@
 
 resetGlobals <- function(){
   .globals$queue <- list()
-  .globals$code <- function(a){}
   .globals$inputs <- list()
   .globals$outputId <- 1
+
+  .globals$env <- new.env(parent=globalenv())
 }
 
 addToQueue = function(cmd, ...){
