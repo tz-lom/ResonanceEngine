@@ -19,9 +19,6 @@ onDataBlock.message <- function(id, msg, timestamp){
 }
 
 onDataBlock.double <- function(id, vector, samples, timestamp){
-  print(length(vector))
-  print(samples)
-
   data <- matrix(vector, nrow=samples, byrow = T)
   attr(data, 'TS') <- seq(to=timestamp, by=1E6/.globals$inputs[[id]]$samplingRate, length.out=samples)
   SI(data) <- .globals$inputs[[id]]
