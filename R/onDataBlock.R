@@ -15,7 +15,7 @@ onDataBlock <- function(id, data) {
 
 onDataBlock.message <- function(id, msg, timestamp){
   attr(msg, 'TS') <- timestamp
-  onDataBlock(id, msg)
+  onDataBlock(id, list(msg))
 }
 
 onDataBlock.double <- function(id, vector, samples, timestamp){
