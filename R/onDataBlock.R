@@ -4,7 +4,7 @@ onDataBlock <- function(id, data) {
     if(index == id) {
       data
     } else {
-      NULL
+      .globals$emptyInputs[[index]]
     }
   }
 

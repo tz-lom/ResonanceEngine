@@ -16,6 +16,20 @@ onPrepare <- function(inputs, code){
 
   .globals$inputs <- lapply(inputs, SI)
 
+  .globals$emptyInputs <- lapply(inputs, function(input){
+    if(SI.is.channels(input)){
+      ret <- matrix(ncol=SI(input)$channels, nrow=0)
+      SI(ret) <- SI(input)
+      return(ret)
+    }
+    if(SI.is.event(input))
+    {
+      ret <- list()
+      SI(ret) <- SI(input)
+      return(ret)
+    }
+  })
+
   input <- function(index) {
     inputs[[index]]
   }

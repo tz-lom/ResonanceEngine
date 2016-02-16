@@ -4,6 +4,7 @@ resetGlobals <- function(){
   .globals$queue <- list()
   .globals$inputs <- list()
   .globals$outputId <- 1
+  .globals$emptyInputs <- list()
 
   .globals$env <- new.env(parent=globalenv())
 }
