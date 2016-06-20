@@ -1,16 +1,11 @@
 onDataBlock <- function(id, data) {
 
-  .globals$env$input <- function(index) {
-    if(index == id) {
-      data
-    } else {
-      .globals$emptyInputs[[index]]
-    }
-  }
+  X <- .globals$inputsData[[id]]
+  .globals$inputsData[[id]] <- data
 
-  if(is.function(.globals$env$process)) {
-    .globals$env$process()
-  }
+  .globals$env$process()
+
+  .globals$inputsData[[id]] <- X
 }
 
 onDataBlock.message <- function(id, msg, timestamp){
