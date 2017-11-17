@@ -57,6 +57,20 @@ createOutput <- function(data, name){
           list()
         }
       }
+      if(SI.is.epoch(data))
+      {
+        env$cb <- function(data){
+          for(d in data){
+            addToQueue(
+              "sendBlockToStream",
+              id = id,
+              data= d
+            )
+          }
+
+          list()
+        }
+      }
 
       id
 
